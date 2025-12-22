@@ -1,0 +1,421 @@
+ㄏv.leave-overview {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.overview-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.day-night-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.day-night-btn {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day-night-btn:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.day-night-btn.active {
+  background: #2196f3;
+  color: white;
+  border-color: #2196f3;
+}
+
+.day-night-btn:focus {
+  outline: none;
+  border-color: #2196f3;
+}
+
+.month-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.nav-arrow {
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.nav-arrow:hover {
+  background: #e0e0e0;
+  border-color: #ccc;
+}
+
+.month-display {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.month-display:hover {
+  background-color: #f5f5f5;
+}
+
+.month-year {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 月份选择器下拉菜单 */
+.month-picker-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  z-index: 1000;
+  min-width: 300px;
+}
+
+.picker-section {
+  margin-bottom: 16px;
+}
+
+.picker-section:last-child {
+  margin-bottom: 0;
+}
+
+.picker-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #666;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.month-option {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.month-option:hover {
+  background: #f5f5f5;
+  border-color: #ccc;
+}
+
+.month-option.selected {
+  background: #2196f3;
+  color: white;
+  border-color: #2196f3;
+}
+
+.year-input-group {
+  display: flex;
+  align-items: center;
+}
+
+.year-input {
+  padding: 8px 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 120px;
+}
+
+.year-input:focus {
+  outline: none;
+  border-color: #2196f3;
+}
+
+.overview-header .today-button {
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 0;
+}
+
+.overview-header .today-button:hover {
+  background: #1976d2;
+}
+
+.overview-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.date-row {
+  display: flex;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.date-column {
+  min-width: 80px;
+  width: 80px;
+  padding: 12px 8px;
+  text-align: center;
+  background: #f5f5f5;
+  border-right: 2px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-column .day-name {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.date-column .day-number {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.date-column .day-number.today {
+  background: #2196f3;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.date-column.pattern-b {
+  background-color: #e3f2fd;
+}
+
+.leave-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.leave-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+}
+
+.leave-group:first-child {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.leave-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.leave-name {
+  min-width: 60px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.people-names {
+  flex: 1;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .leave-overview {
+    padding: 16px;
+  }
+
+  .date-row {
+    flex-direction: column;
+  }
+
+  .date-column {
+    border-right: none;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .leave-column {
+    flex-direction: column;
+  }
+
+  .leave-group {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .leave-group:last-child {
+  border-bottom: none;
+}
+}
+
+/* 双击菜单样式 */
+.date-leave-menu {
+  background: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.menu-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.available-leave-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.available-leave-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.available-leave-item:hover {
+  background: #f8f9fa;
+  border-color: #2196f3;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.available-leave-item.assigned {
+  background: #e3f2fd;
+  border-color: #2196f3;
+  box-shadow: 0 2px 6px rgba(33, 150, 243, 0.2);
+}
+
+.leave-type-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.leave-type-info {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.close-menu-btn {
+  background: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 0 auto;
+  display: block;
+}
+
+.close-menu-btn:hover {
+  background: #d32f2f;
+}
+
+.delete-leave-btn {
+  background: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 8px 0;
+  width: 100%;
+}
+
+.delete-leave-btn:hover {
+  background: #d84315;
+}
