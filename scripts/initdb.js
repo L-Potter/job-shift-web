@@ -1,6 +1,14 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
+
+const HMAC_SECRET = 'your-hmac-secret-key';
+
+// 简单的密码哈希函数（与 server/index.js 保持一致）
+const hashPassword = (password) => {
+  return crypto.createHmac('sha256', HMAC_SECRET).update(password).digest('hex');
+};
 
 // 数据库文件路径
 const dbPath = path.join(__dirname, '..', 'database.db');
@@ -59,6 +67,23 @@ const insertLeaveType = (name, isNotWorkday, color = '#ff9800') => {
   });
 };
 
+const insertAdminUser = () => {
+  return new Promise((resolve, reject) => {
+    const passwordHash = hashPassword('admin');
+    db.run(
+      'INSERT INTO users (name, employee_id, password_hash, shift_type, site, role, day_night) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      ['Administrator', 'admin', passwordHash, 'B', 'P1', 'admin', 'D'],
+      (err) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      }
+    );
+  });
+};
+
 // 初始化数据库
 (async () => {
   try {
@@ -100,6 +125,10 @@ const insertLeaveType = (name, isNotWorkday, color = '#ff9800') => {
       );
     `);
     console.log('✅ 已创建表: users');
+
+    // 插入管理员用户
+    await insertAdminUser();
+    console.log('✅ 已创建管理员用户: admin (密码: 663955)');
 
     // 插入默认的 leave_types 数据
     const defaultLeaveTypes = [

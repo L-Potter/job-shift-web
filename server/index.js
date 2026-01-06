@@ -3,6 +3,7 @@ const cors = require('cors');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const crypto = require('crypto');
+const HMAC_SECRET = 'your-hmac-secret-key'; // Secret key for HMAC
 const fs = require('fs');
 const session = require('express-session');
 
@@ -45,7 +46,7 @@ db.run('PRAGMA foreign_keys = ON');
 
 // 简单的密码哈希函数（生产环境应使用 bcrypt）
 const hashPassword = (password) => {
-  return crypto.createHash('sha256').update(password).digest('hex');
+  return crypto.createHmac('sha256', HMAC_SECRET).update(password).digest('hex');
 };
 
 // 登录验证
