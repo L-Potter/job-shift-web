@@ -33,15 +33,24 @@ const EmployeeDetailPanel: React.FC<EmployeeDetailPanelProps> = ({ user, onClose
 
   useEffect(() => {
     const loadData = async () => {
+      // Load calendar tags
       try {
-        const [tags, assignments] = await Promise.all([
-          getCalendarTags(),
-          getShiftAssignments(user.employee_id)
-        ])
+        const tags = await getCalendarTags()
         setCalendarTags(tags)
-        setShiftAssignments(assignments)
+      } catch (error) {
+        console.error('Failed to load calendar tags:', error)
+      }
 
-        // Direct API call to /api/leave-types/:employeeId
+      // Load shift assignments
+      try {
+        const assignments = await getShiftAssignments(user.employee_id)
+        setShiftAssignments(assignments)
+      } catch (error) {
+        console.error('Failed to load shift assignments:', error)
+      }
+
+      // Load leave types
+      try {
         const leaveTypesResponse = await fetch(`/api/leave-types/${user.employee_id}`)
         if (leaveTypesResponse.ok) {
           const responseData = await leaveTypesResponse.json()
@@ -51,7 +60,7 @@ const EmployeeDetailPanel: React.FC<EmployeeDetailPanelProps> = ({ user, onClose
           console.error('Failed to load leave types')
         }
       } catch (error) {
-        console.error('Failed to load data:', error)
+        console.error('Failed to load leave types:', error)
       }
     }
     loadData()

@@ -16,21 +16,18 @@ export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
 
-  // Check if user is logged in on app start
+  // Check if user is logged in on app start (from localStorage)
   useEffect(() => {
-    const checkAuth = async () => {
+    const checkAuth = () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/auth/status`, {
-          credentials: 'include'
-        })
-        if (response.ok) {
-          const data = await response.json()
-          if (data.authenticated) {
-            setUser(data.user)
-          }
+        const storedUser = localStorage.getItem('user')
+        if (storedUser) {
+          const userData = JSON.parse(storedUser)
+          setUser(userData)
         }
       } catch (error) {
-        console.error('Failed to check auth status:', error)
+        console.error('Failed to load user from localStorage:', error)
+        localStorage.removeItem('user') // Clear corrupted data
       } finally {
         setLoading(false)
       }
@@ -60,6 +57,7 @@ export const useAuth = () => {
 
       const userData = await response.json()
       setUser(userData)
+      localStorage.setItem('user', JSON.stringify(userData))
       return true
     } catch (error) {
       console.error('Login failed:', error)
@@ -78,6 +76,7 @@ export const useAuth = () => {
       console.error('Logout failed:', error)
     } finally {
       setUser(null)
+      localStorage.removeItem('user')
     }
   }
 
